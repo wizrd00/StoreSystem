@@ -21,6 +21,7 @@ public class Tools {
 			value = "L";
 			break;
 		default :
+			value = "";
 			break;
 		}
 		return value;
@@ -33,11 +34,11 @@ public class Tools {
 
 	public static boolean isInRange(int value, int start, int end)
 	{
-		//TODO
+		return ((value >= start) && (value <= end));
 	}
 
 	public static boolean isInRange(float value, float start, float end)
 	{
-		return ((value >= start) && (value <= end))
+		return ((value >= start) && (value <= end));
 	}
 }
