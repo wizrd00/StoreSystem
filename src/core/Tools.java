@@ -1,6 +1,4 @@
-package core.Tools;
-
-import core.Types;
+package core;
 
 public class Tools {
 	public static String unitToString(Unit unit)
@@ -31,5 +29,15 @@ public class Tools {
 	public static String makeProductSpecification(Product product)
 	{
 		//TODO
+	}
+
+	public static boolean isInRange(int value, int start, int end)
+	{
+		//TODO
+	}
+
+	public static boolean isInRange(float value, float start, float end)
+	{
+		return ((value >= start) && (value <= end))
 	}
 }

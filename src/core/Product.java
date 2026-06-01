@@ -1,7 +1,4 @@
-package core.Product;
-
-import core.Types;
-import core.Tools;
+package core;
 
 import java.time.LocalDate;
 
@@ -9,7 +6,6 @@ public class Product {
 	public String name;
 	public float price;
 	public long id;
-	public int count;
 	public Unit unit;
 
 	private String _man_name;
@@ -22,10 +18,9 @@ public class Product {
 
 	public void Product(String name, float price, long id, int count)
 	{
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.price = price;
 		this.id = id;
-		this.count = count;
 	}
 
 	public void setManufacturerName(String name)
