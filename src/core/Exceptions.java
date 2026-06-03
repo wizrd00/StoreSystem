@@ -6,3 +6,10 @@ public class ProductNotFound extends Exception {
 		super(message);
 	}
 }
+
+public class ProductNotAvailable extends Exception {
+	public ProductNotAvailable(String message)
+	{
+		super(message);
+	}
+}

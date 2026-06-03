@@ -29,7 +29,7 @@ public class Tools {
 
 	public static String makeProductSpecification(Product product)
 	{
-		//TODO
+		// TODO
 	}
 
 	public static boolean isInRange(int value, int start, int end)

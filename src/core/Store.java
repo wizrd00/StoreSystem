@@ -9,6 +9,15 @@ public class Store {
 	// manufacturer name, color or event expiration date, so I think HashMap is clever choice but I know it can be memory-hungry
 	// However I'm not a java expert and this language it's not even close to be as brilliant as C
 
+	public ArrayList<Product> getShelf()
+	{
+		ArrayList<Product> products = new ArrayList<>();
+		for (String key : _shelf.keySet())
+			for (int i = 0; i < _shelf.get(key).size(); i++)
+				products.add(_shelf.get(key).get(i));
+		return products;
+	}
+
 	public void addProduct(Product product)
 	{
 		if (_shelf.containsKey(product.name)) {
@@ -19,6 +28,25 @@ public class Store {
 		new_product.add(product);
 		_shelf.put(product.name, new_product);
 		return;
+	}
+
+	public void buyProduct(long id)
+		throws ProductNotFound, ProductNotAvailable
+	{
+		for (String key : _shelf.keySet()) {
+			ArrayList<Product> list = _shelf.get(key);
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).id != id)
+					continue;
+				if (list.get(i).getAvailable()) {
+					list.remove(i);
+					return;
+				} else {
+					throw new ProductNotAvailable(String.format("The product with name %s and id %l is not available", name, id));
+				}
+			}
+		}
+		throw new ProductNotFound("The product with name %s and id %l not found", name, id);
 	}
 
 	public ArrayList<Product> searchByName(String name)

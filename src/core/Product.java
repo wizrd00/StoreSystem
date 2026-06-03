@@ -8,6 +8,7 @@ public class Product {
 	public long id;
 	public Unit unit;
 
+	private boolean _avail;
 	private String _man_name;
 	private String _color;
 	private float _weight;
@@ -21,6 +22,16 @@ public class Product {
 		this.name = name.toLowerCase();
 		this.price = price;
 		this.id = id;
+	}
+
+	public void setAvailable()
+	{
+		this._avail = true;
+	}
+
+	public boolean getAvailable()
+	{
+		return _avail;
 	}
 
 	public void setManufacturerName(String name)
