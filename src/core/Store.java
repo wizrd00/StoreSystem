@@ -5,10 +5,12 @@ import java.util.HashMap;
 
 public class Store {
 	private HashMap<String, ArrayList<Product>> _shelf = new HashMap<>();
+	private ArrayList<Product> _pending_shelf = new ArrayList<>();
 	// I choose this data architecture because for example a Product with name "Milk" can have different
 	// manufacturer name, color or event expiration date, so I think HashMap is clever choice but I know it can be memory-hungry
 	// However I'm not a java expert and this language it's not even close to be as brilliant as C
 
+	// TODO : reports
 	public ArrayList<Product> getShelf()
 	{
 		ArrayList<Product> products = new ArrayList<>();
@@ -49,6 +51,18 @@ public class Store {
 		throw new ProductNotFound("The product with name %s and id %l not found", name, id);
 	}
 
+	public void undoActions()
+	{
+		for (int i = 0; i < _pending_shelf.size(); i++)
+			addProduct(_pending_shelf.get(i));
+		_pending_shelf.clear();
+	}
+
+	public void finalizeActions()
+	{
+		_pending_shelf.clear();
+	}
+
 	public ArrayList<Product> searchByName(String name)
 		throws ProductNotFound
 	{
@@ -72,5 +86,17 @@ public class Store {
 			throw new ProductNotFound(String.format("Product with price in range %f to %f not found", start, end));
 		else
 			return result;
+	}
+
+	public Product searchById(long id)
+		throws ProductNotFound
+	{
+		for (String key : _shelf.keySet()) {
+			for (int i = 0; i < _shelf.get(key).size(); i++) {
+				if (_shelf.get(key).get(i).id == id)
+					return _shelf.get(key).get(i);
+			}
+		}
+		throw new ProductNotFound(String.format("Product with id %ld not found", id));
 	}
 }

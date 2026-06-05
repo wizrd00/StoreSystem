@@ -1,15 +1,14 @@
 package core;
 
+import java.util.ArrayList;
+
 public class StoreSystem {
 	private ShoppingChart _chart = new ShoppingChart();
-	private Invoice _invoice = new Invoice();
 	private Store _store;
-	private Uploader _upload;
 
-	public StoreSystem(Store store, Uploader upload)
+	public StoreSystem(Store store)
 	{
 		this._store = store;
-		this._upload = upload;
 	}
 
 	public Product[] searchProductByName(String name)
@@ -25,7 +24,7 @@ public class StoreSystem {
 		return result;
 	}
 
-	public String searchProductByPriceRange(float start, float end)
+	public Product[] searchProductByPriceRange(float start, float end)
 		throws ProductNotFound
 	{
 		Product[] result;
@@ -38,13 +37,82 @@ public class StoreSystem {
 		return result;
 	}
 
-	public void addToChart(Product product)
+	public void addToChart(long id)
+		throws ProductNotFound
 	{
-		// TODO
+		Product product;
+		try {
+			product = _store.searchById(id);
+		} catch (ProductNotFound err) {
+			throw new ProductNotFound(err.getMessage());
+		}
+		_chart.addNewProduct(product);
 	}
 
-	public void removeFromChart(Product product)
+	public void removeFromChart(long id)
+		throws ProductNotFound
 	{
-		// TODO
+		try {
+			_chart.removeSpecificProduct(id);
+		} catch (ProductNotFound err) {
+			throw new ProductNotFound(err.getMessage());
+		}
+	}
+
+	public float getChartTotalPrice()
+	{
+		return _chart.getChartTotalPrice();
+	}
+
+	public void clearChart()
+	{
+		_chart.removeAllProducts();
+	}
+
+	public Invoice submitChartOrder()
+		throws ProductNotFound, ProductNotAvailable, DataBaseSyncFailed
+	{
+		Product[] products = _chart.getChartList();
+		Invoice invoice = new Invoice();
+		_store.finalizeActions();
+		for (int i = 0; i < products.lenght; i++)
+			try {
+				_store.buyProduct(products[i].id);
+			} catch (ProductNotFound err0) {
+				throw new ProductNotFound(String.format("Failed to submit the order : %s", err0.getMessage()));
+			} catch (ProductNotAvailable err1) {
+				throw new ProductNotAvailable(String.format("Failed to submit the order : %s", err1.getMessage()));
+			}
+		try {
+			syncDatabase();
+		} catch (DataBaseSyncFailed err) {
+			_store.undoActions();
+			throw new DatabaseSyncFailed("Database Syncing failed");
+		}
+		_store.finalizeActions();
+		invoice.addProducts(products);
+		clearChart();
+		return invoice;
+	}
+
+	public void ReturnProduct(Product product)
+		throws DatabaseSyncFailed
+	{
+		_store.addProduct(product);
+		try {
+			syncDatabase();
+		} catch (DataBaseSyncFailed err) {
+			throw new DatabaseSyncFailed("Database Syncing failed");
+		}
+	}
+
+	public void syncDatabase()
+		throws DatabaseSyncFailed
+	{
+		try {
+			Uploader.upload(_store);
+		} catch (UploadFailed err) {
+			throw new DatabaseSyncFailed();
+		}
 	}
 }

@@ -32,6 +32,11 @@ public class Tools {
 		// TODO
 	}
 
+	public static Product createNewProduct()
+	{
+		// TODO
+	}
+
 	public static boolean isInRange(int value, int start, int end)
 	{
 		return ((value >= start) && (value <= end));
