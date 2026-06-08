@@ -1,0 +1,4 @@
+name,unit,price,manufacturer,color,manufacture_date,expiration_date,weight,volume,discount
+chips,pcs,4.67,chetoz,none,1404/02/02,1405/02/02,10.45,0.0,0
+cheeze,pcs,20.99,haraz,white-blue,1404/03/11,1404/04/11,300.56,0.0,10
+cheeze,pcs,21.99,mihan,white-blue,1404/03/11,1404/05/11,300.66,10.1,0

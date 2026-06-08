@@ -40,7 +40,7 @@ public class Uploader {
 			item.put("color", product.getColor());
 			item.put("manufacture_date", product.getManufactureDate());
 			item.put("expiration_date", product.getExpirationDate());
-			item.put("weigth", Float.toString(product.getWeight()));
+			item.put("weight", Float.toString(product.getWeight()));
 			item.put("volume", Float.toString(product.getVolume()));
 			item.put("discount", Integer.toString(product.getDiscount()));
 			list.add(item);

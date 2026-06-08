@@ -61,6 +61,11 @@ public class StoreSystem {
 		}
 	}
 
+	public Product[] listChart()
+	{
+		return _chart.getChartList();
+	}
+
 	public float getChartTotalPrice()
 	{
 		return _chart.getChartTotalPrice();
@@ -89,7 +94,7 @@ public class StoreSystem {
 			syncDatabase();
 		} catch (DatabaseSyncFailed err) {
 			_store.undoActions();
-			throw new DatabaseSyncFailed("Database Syncing failed");
+			throw new DatabaseSyncFailed(err.getMessage());
 		}
 		_store.finalizeActions();
 		invoice.addProducts(products);
@@ -97,14 +102,14 @@ public class StoreSystem {
 		return invoice;
 	}
 
-	public void ReturnProduct(Product product)
+	public void returnProduct(Product product)
 		throws DatabaseSyncFailed
 	{
 		_store.addProduct(product);
 		try {
 			syncDatabase();
 		} catch (DatabaseSyncFailed err) {
-			throw new DatabaseSyncFailed("Database Syncing failed");
+			throw new DatabaseSyncFailed(err.getMessage());
 		}
 	}
 

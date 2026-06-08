@@ -36,7 +36,7 @@ public class CSVWriterTest {
 		content.add(item2);
 		content.add(item3);
 		try {
-			list = new CSVWriter("./test/TestWriteCSV/list.csv", content, keys);
+			list = new CSVWriter("./src/test/TestWriteCSV/list.csv", content, keys);
 			list.serializeCSVFile();
 		} catch (Exception err) {
 			System.out.println(err.getMessage());

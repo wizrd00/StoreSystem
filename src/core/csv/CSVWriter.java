@@ -48,7 +48,7 @@ public class CSVWriter {
 			HashMap<String, String> item = content.get(i);
 			for (int j = 0; j < keys.length; j++)
 				if (!item.containsKey(keys[j]))
-					throw new CSVFileKeysNotMatch(String.format("given key %s don't match with hashmap keys", keys[i]));
+					throw new CSVFileKeysNotMatch(String.format("given key %s don't match with hashmap keys", keys[j]));
 				// make sure there is not invalid key before writing into file which is impossible to recover
 			for (int j = 0; j < keys.length; j++) {
 				try {
