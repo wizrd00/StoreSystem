@@ -43,11 +43,11 @@ public class Store {
 					list.remove(i);
 					return;
 				} else {
-					throw new ProductNotAvailable(String.format("The product with name %s and id %ld is not available", list.get(i).name, id));
+					throw new ProductNotAvailable(String.format("The product with name %s and id %d is not available", list.get(i).name, id));
 				}
 			}
 		}
-		throw new ProductNotFound(String.format("The product with id %ld not found", id));
+		throw new ProductNotFound(String.format("The product with id %d not found", id));
 	}
 
 	public void undoActions()
@@ -96,7 +96,7 @@ public class Store {
 					return _shelf.get(key).get(i);
 			}
 		}
-		throw new ProductNotFound(String.format("Product with id %ld not found", id));
+		throw new ProductNotFound(String.format("Product with id %d not found", id));
 	}
 
 	public String reportBasedOnCount()

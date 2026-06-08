@@ -23,7 +23,7 @@ public class ShoppingChart {
 			if (_products.get(i).id == id)
 				_products.remove(i);
 			else
-				throw new ProductNotFound(String.format("Product with id %ld not found", id));
+				throw new ProductNotFound(String.format("Product with id %d not found", id));
 	}
 
 	public float getChartTotalPrice()
