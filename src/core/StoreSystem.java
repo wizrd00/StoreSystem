@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class StoreSystem {
 	private ShoppingChart _chart = new ShoppingChart();
 	private Store _store;
+	private Uploader _uploader;
 
-	public StoreSystem(Store store)
+	public StoreSystem(Store store, Uploader uploader)
 	{
 		this._store = store;
+		this._uploader = uploader;
 	}
 
 	public Product[] searchProductByName(String name)
@@ -17,9 +19,9 @@ public class StoreSystem {
 		Product[] result;
 		try {
 			ArrayList<Product> products = _store.searchByName(name);
-			result = products.toArray(new Product[products.size()])
+			result = products.toArray(new Product[products.size()]);
 		} catch (ProductNotFound err) {
-			throw ProductNotFound(err.getMessage());
+			throw new ProductNotFound(err.getMessage());
 		}
 		return result;
 	}
@@ -30,9 +32,9 @@ public class StoreSystem {
 		Product[] result;
 		try {
 			ArrayList<Product> products = _store.searchByPriceRange(start, end);
-			result = products.toArray(new Product[products.size()])
+			result = products.toArray(new Product[products.size()]);
 		} catch (ProductNotFound err) {
-			throw ProductNotFound(err.getMessage());
+			throw new ProductNotFound(err.getMessage());
 		}
 		return result;
 	}
@@ -70,12 +72,12 @@ public class StoreSystem {
 	}
 
 	public Invoice submitChartOrder()
-		throws ProductNotFound, ProductNotAvailable, DataBaseSyncFailed
+		throws ProductNotFound, ProductNotAvailable, DatabaseSyncFailed
 	{
 		Product[] products = _chart.getChartList();
 		Invoice invoice = new Invoice();
 		_store.finalizeActions();
-		for (int i = 0; i < products.lenght; i++)
+		for (int i = 0; i < products.length; i++)
 			try {
 				_store.buyProduct(products[i].id);
 			} catch (ProductNotFound err0) {
@@ -85,7 +87,7 @@ public class StoreSystem {
 			}
 		try {
 			syncDatabase();
-		} catch (DataBaseSyncFailed err) {
+		} catch (DatabaseSyncFailed err) {
 			_store.undoActions();
 			throw new DatabaseSyncFailed("Database Syncing failed");
 		}
@@ -101,7 +103,7 @@ public class StoreSystem {
 		_store.addProduct(product);
 		try {
 			syncDatabase();
-		} catch (DataBaseSyncFailed err) {
+		} catch (DatabaseSyncFailed err) {
 			throw new DatabaseSyncFailed("Database Syncing failed");
 		}
 	}
@@ -110,9 +112,29 @@ public class StoreSystem {
 		throws DatabaseSyncFailed
 	{
 		try {
-			Uploader.upload(_store);
+			_uploader.upload(_store.getShelf());
 		} catch (UploadFailed err) {
-			throw new DatabaseSyncFailed();
+			throw new DatabaseSyncFailed(err.getMessage());
 		}
+	}
+
+	public String reportBasedOnCount()
+	{
+		return _store.reportBasedOnCount();
+	}
+
+	public String reportBasedOnManufactureDate()
+	{
+		return _store.reportBasedOnManufactureDate();
+	}
+
+	public String reportBasedOnExpirationDate()
+	{
+		return _store.reportBasedOnExpirationDate();
+	}
+
+	public String reportBasedOnDiscount()
+	{
+		return _store.reportBasedOnDiscount();
 	}
 }

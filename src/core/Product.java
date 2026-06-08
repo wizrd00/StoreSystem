@@ -4,22 +4,23 @@ import java.time.LocalDate;
 
 public class Product {
 	public String name;
+	public String unit;
 	public float price;
 	public long id;
-	public Unit unit;
 
 	private boolean _avail;
 	private String _man_name;
 	private String _color;
-	private float _weight;
-	private float _volume;
-	private int _discount;
-	private LocalDate _manufacturing_date;
-	private LocalDate _expiration_date
+	private String _manufacture_date;
+	private String _expiration_date;
+	private float _weight; // in grams
+	private float _volume; // in liters
+	private int _discount; // in percent
 
-	public void Product(String name, float price, long id, int count)
+	public Product(String name, String unit, float price, long id)
 	{
 		this.name = name.toLowerCase();
+		this.unit = unit;
 		this.price = price;
 		this.id = id;
 	}
@@ -54,6 +55,26 @@ public class Product {
 		return _color;
 	}
 
+	public void setManufactureDate(String date)
+	{
+		this._manufacture_date = date;
+	}
+
+	public String getManufactureDate()
+	{
+		return _manufacture_date;
+	}
+
+	public void setExpirationDate(String date)
+	{
+		this._expiration_date = date;
+	}
+
+	public String getExpirationDate()
+	{
+		return _expiration_date;
+	}
+
 	public void setWeight(float weight)
 	{
 		this._weight = weight;
@@ -84,23 +105,9 @@ public class Product {
 		return _discount;
 	}
 
-	public void setManufactureDate(LocalDate date)
+	public String getSpecification()
 	{
-		this._manufacturer_date = date
-	}
-
-	public LocalDate getManufactureDate()
-	{
-		return _manufacture_date;
-	}
-
-	public void setExpirationDate(LocalDate date)
-	{
-		this._expiration_date = date
-	}
-
-	public LocalDate getExpirationDate()
-	{
-		return _expiration_date;
+		String spec = String.format("name : %s\nunit : %s\nprice : %.2f\nid = %d", name, unit, price, id);
+		return spec;
 	}
 }

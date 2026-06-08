@@ -1,0 +1,6 @@
+name,unit,price,manufacturer,color,manufacture_date,expiration_date,weight,volume,discount
+milk,liter,11.73,mihan,white,1404/03/12,1404/03/22,400.45,10.0,0
+cheeze,pcs,20.99,haraz,white-blue,1404/03/11,1404/04/11,300.56,0.0,10
+ice cream,pcs,4.00,domino,none,1404/03/01,1404/04/01,100.78,0.0,0
+milk,liter,10.00,domino,blue,1404/03/05,1404/03/07,350.28,0.88,2
+cheeze,pcs,21.99,mihan,white-blue,1404/03/11,1404/05/11,300.66,10.1,0

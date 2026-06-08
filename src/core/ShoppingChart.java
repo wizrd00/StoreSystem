@@ -7,7 +7,7 @@ public class ShoppingChart {
 
 	public Product[] getChartList()
 	{
-		return _product.toArray(new Product[_product.size()]);
+		return _products.toArray(new Product[_products.size()]);
 	}
 
 	public void addNewProduct(Product product)
@@ -28,7 +28,7 @@ public class ShoppingChart {
 
 	public float getChartTotalPrice()
 	{
-		float price = 0.0;
+		float price = 0.0f;
 		for (int i = 0; i < _products.size(); i++)
 			price += _products.get(i).price;
 		return price;

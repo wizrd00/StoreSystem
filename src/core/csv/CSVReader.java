@@ -50,8 +50,8 @@ public class CSVReader {
 			values = line.split(",");
 			if (values.length != keys.length)
 				throw new CSVFileInvalidFormat(String.format("invalid csv format at line %d : \"%s\"", index + 1, line));
+			_content.add(new HashMap<>());
 			for (int i = 0; i < keys.length; i++) {
-				_content.add(new HashMap<>());
 				_content.get(index).put(keys[i], values[i]);
 			}
 			index++;

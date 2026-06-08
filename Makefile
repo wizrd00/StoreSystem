@@ -5,10 +5,13 @@ SOURCES := $(shell find $(SRC_DIR) -name "*.java")
 
 all :
 	mkdir -p $(BIN_DIR)
-	javac -d $(BIN_DIR) $(SOURCES)
+	javac -g -d $(BIN_DIR) $(SOURCES)
 
 clean :
 	rm -rf $(BIN_DIR)/*
 
 run : all
 	java -cp $(BIN_DIR) Main
+
+debug : all
+	jdb -classpath bin Main

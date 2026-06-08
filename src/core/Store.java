@@ -10,7 +10,6 @@ public class Store {
 	// manufacturer name, color or event expiration date, so I think HashMap is clever choice but I know it can be memory-hungry
 	// However I'm not a java expert and this language it's not even close to be as brilliant as C
 
-	// TODO : reports
 	public ArrayList<Product> getShelf()
 	{
 		ArrayList<Product> products = new ArrayList<>();
@@ -44,11 +43,11 @@ public class Store {
 					list.remove(i);
 					return;
 				} else {
-					throw new ProductNotAvailable(String.format("The product with name %s and id %l is not available", name, id));
+					throw new ProductNotAvailable(String.format("The product with name %s and id %ld is not available", list.get(i).name, id));
 				}
 			}
 		}
-		throw new ProductNotFound("The product with name %s and id %l not found", name, id);
+		throw new ProductNotFound(String.format("The product with id %ld not found", id));
 	}
 
 	public void undoActions()
@@ -78,7 +77,7 @@ public class Store {
 		for (String key : _shelf.keySet()) {
 			for (int i = 0; i < _shelf.get(key).size(); i++) {
 				Product product = _shelf.get(key).get(i);
-				if (Tools.isInRange(product.price, start, end)
+				if (Tools.isInRange(product.price, start, end))
 					result.add(product);
 			}
 		}
@@ -98,5 +97,29 @@ public class Store {
 			}
 		}
 		throw new ProductNotFound(String.format("Product with id %ld not found", id));
+	}
+
+	public String reportBasedOnCount()
+	{
+		String report = "";
+		return report;
+	}
+
+	public String reportBasedOnManufactureDate()
+	{
+		String report = "";
+		return report;
+	}
+
+	public String reportBasedOnExpirationDate()
+	{
+		String report = "";
+		return report;
+	}
+
+	public String reportBasedOnDiscount()
+	{
+		String report = "";
+		return report;
 	}
 }
