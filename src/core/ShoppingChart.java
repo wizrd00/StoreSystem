@@ -22,8 +22,8 @@ public class ShoppingChart {
 		for (int i = 0; i < _products.size(); i++)
 			if (_products.get(i).id == id)
 				_products.remove(i);
-			else
-				throw new ProductNotFound(String.format("Product with id %d not found", id));
+				return;
+		throw new ProductNotFound(String.format("Product with id %d not found", id));
 	}
 
 	public float getChartTotalPrice()
