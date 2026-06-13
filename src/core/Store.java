@@ -156,6 +156,7 @@ public class Store {
 		String format = "[%-3d] %-3d%% DISCOUNT for Product %s\n";
 		for (int i = 0; i < products.size(); i++) {
 			Product item = products.get(i);
+			if (item.getDiscount() == 0) continue;
 			report += String.format(format, i, item.getDiscount(), item.getSpecification());
 		}
 		return report;
