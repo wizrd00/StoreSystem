@@ -10,4 +10,9 @@ public class Tools {
 	{
 		return ((value >= start) && (value <= end));
 	}
+
+	public static String getCountBar(int count, int total, int length)
+	{
+		return ("█".repeat(count / total * length) + "░".repeat(length - (count / total * length));
+	}
 }

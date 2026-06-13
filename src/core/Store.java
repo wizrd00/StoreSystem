@@ -101,7 +101,12 @@ public class Store {
 
 	public String reportBasedOnCount()
 	{
+		int total_count = getShelf().size();
 		String report = "";
+		String format = "[%3.3d]  %s %s\n";
+		for (String key : _shelf.keySet()) {
+			report += Tools.getCountBar(_shelf.get(key).size(), total_count, 64);
+		}
 		return report;
 	}
 
