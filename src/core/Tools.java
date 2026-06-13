@@ -13,6 +13,7 @@ public class Tools {
 
 	public static String getCountBar(int count, int total, int length)
 	{
-		return ("█".repeat(count / total * length) + "░".repeat(length - (count / total * length));
+		int block_count = (int) ((float) count / (float) total * (float) length);
+		return ("█".repeat(block_count) + "░".repeat(length - block_count));
 	}
 }

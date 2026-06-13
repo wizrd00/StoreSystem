@@ -107,7 +107,7 @@ public class Product {
 
 	public String getSpecification()
 	{
-		String spec = String.format("name : %s\nunit : %s\nprice : %.2f\nid = %d", name, unit, price, id);
+		String spec = String.format("Name:%s, Unit:%s, Price:%.2f, ID:%d", name, unit, price, id);
 		return spec;
 	}
 }

@@ -103,28 +103,61 @@ public class Store {
 	{
 		int total_count = getShelf().size();
 		String report = "";
-		String format = "[%3.3d]  %s %s\n";
+		String format = "[%-3d %s]  %s %s\n\n";
 		for (String key : _shelf.keySet()) {
-			report += Tools.getCountBar(_shelf.get(key).size(), total_count, 64);
+			ArrayList<Product> item = _shelf.get(key);
+			report += String.format(format, item.size(), (item.size() > 1) ? "products" : "product ", Tools.getCountBar(item.size(), total_count, 64), key);
 		}
 		return report;
 	}
 
 	public String reportBasedOnManufactureDate()
 	{
+		ArrayList<Product> products = getShelf();
+		HashMap<String, ArrayList<Product>> list = new HashMap<>();
 		String report = "";
+		String format = "[%-3d %s]  %s %s\n\n";
+		for (int i = 0; i < products.size(); i++) {
+			Product item = products.get(i);
+			if (!list.containsKey(item.getManufactureDate()))
+				list.put(item.getManufactureDate(), new ArrayList<>());
+			list.get(item.getManufactureDate()).add(item);
+		}
+		for (String key : list.keySet()) {
+			ArrayList<Product> item = list.get(key);
+			report += String.format(format, item.size(), (item.size() > 1) ? "products" : "product ", Tools.getCountBar(item.size(), products.size(), 64), key);
+		}
 		return report;
 	}
 
 	public String reportBasedOnExpirationDate()
 	{
+		ArrayList<Product> products = getShelf();
+		HashMap<String, ArrayList<Product>> list = new HashMap<>();
 		String report = "";
+		String format = "[%-3d %s]  %s %s\n\n";
+		for (int i = 0; i < products.size(); i++) {
+			Product item = products.get(i);
+			if (!list.containsKey(item.getExpirationDate()))
+				list.put(item.getExpirationDate(), new ArrayList<>());
+			list.get(item.getExpirationDate()).add(item);
+		}
+		for (String key : list.keySet()) {
+			ArrayList<Product> item = list.get(key);
+			report += String.format(format, item.size(), (item.size() > 1) ? "products" : "product ", Tools.getCountBar(item.size(), products.size(), 64), key);
+		}
 		return report;
 	}
 
 	public String reportBasedOnDiscount()
 	{
+		ArrayList<Product> products = getShelf();
 		String report = "";
+		String format = "[%-3d] %-3d%% DISCOUNT for Product %s\n";
+		for (int i = 0; i < products.size(); i++) {
+			Product item = products.get(i);
+			report += String.format(format, i, item.getDiscount(), item.getSpecification());
+		}
 		return report;
 	}
 }
