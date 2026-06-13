@@ -20,9 +20,10 @@ public class ShoppingChart {
 		throws ProductNotFound
 	{
 		for (int i = 0; i < _products.size(); i++)
-			if (_products.get(i).id == id)
+			if (_products.get(i).id == id) {
 				_products.remove(i);
 				return;
+			}
 		throw new ProductNotFound(String.format("Product with id %d not found", id));
 	}
 

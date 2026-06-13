@@ -74,6 +74,4 @@ public class CSVWriter {
 		}
 		is_serialized = true;
 	}
-
-
 }
